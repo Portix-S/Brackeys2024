@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private List<Material> materials;
     public List<GameObject> doors;
     [SerializeField] private List<GameObject> doorsToOpen;
     [SerializeField] private GameObject _selectedDoor;
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
         // Randomly select a door to be the winning door
         doorsToOpen = new List<GameObject>();
         int winningIndex = Random.Range(0, doors.Count);
+        // Changes Material of Winning Door
         doorsToOpen.Add(doors[winningIndex]);
         doors.Remove(doors[winningIndex]);
         int loosingIndex = Random.Range(0, doors.Count);
@@ -87,6 +89,10 @@ public class GameManager : MonoBehaviour
         }
         _winningDoor = doorsToOpen[0];
         _loosingDoor = doorsToOpen[1];
+        _winningDoor.GetComponentInChildren<SpriteRenderer>().material = materials[0];
+        _loosingDoor.GetComponentInChildren<SpriteRenderer>().material = materials[1];
+        _remaingDoor.GetComponentInChildren<SpriteRenderer>().material = materials[2];
+
         Debug.Log("Winning door: " + _winningDoor);
         Debug.Log("Loosing door: " + _loosingDoor);
     }
