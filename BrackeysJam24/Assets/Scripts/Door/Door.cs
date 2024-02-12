@@ -8,16 +8,27 @@ public class Door : MonoBehaviour
 {
     private Animator _animator;
     private static readonly int OpenDoor1 = Animator.StringToHash("OpenDoor");
+    public bool activeDoor;
 
+    private DoorBehaviour _doorBehaviour;
+    // Have a doorBehaviour Class, which will be decided by the manager, and will be called by the door
     void Start()
     {
         _animator = GetComponent<Animator>();
     }
+    
+    public void SetDoorBehaviour(DoorBehaviour doorBehaviour)
+    {
+        _doorBehaviour = doorBehaviour;
+    }
 
-    public void OpenDoor()
+    public void OpenDoor(bool active)
     {
         _animator.SetTrigger(OpenDoor1);
-        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        activeDoor = active;
+        GetComponent<BoxCollider2D>().enabled = false;
+        if(active)
+            _doorBehaviour.ActivateDoor();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
