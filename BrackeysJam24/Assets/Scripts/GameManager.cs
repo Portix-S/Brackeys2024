@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     private Inputs inputAction;
 
     [SerializeField] private List<DoorBehaviour> prologueDoorBehaviours;
+    [SerializeField] private List<DoorBehaviour> badDoorBehaviours;
+    [SerializeField] private List<DoorBehaviour> neutralDoorBehaviours;
+    [SerializeField] private List<DoorBehaviour> goodDoorBehaviours;
 
     // Start is called before the first frame update
     void Start()
@@ -180,6 +183,13 @@ public class GameManager : MonoBehaviour
         _remaingDoor = doors[0];
         doorsToOpen.Add(_remaingDoor);
         doors.Remove(_remaingDoor);
+        
+        int randomIndex = Random.Range(0, goodDoorBehaviours.Count);
+        _winningDoor.GetComponent<Door>().SetDoorBehaviour(goodDoorBehaviours[randomIndex]);
+        randomIndex = Random.Range(0, badDoorBehaviours.Count);
+        _loosingDoor.GetComponent<Door>().SetDoorBehaviour(badDoorBehaviours[randomIndex]);
+        randomIndex = Random.Range(0, neutralDoorBehaviours.Count);
+        _remaingDoor.GetComponent<Door>().SetDoorBehaviour(neutralDoorBehaviours[randomIndex]);
         
     }
     

@@ -2782,6 +2782,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f13529700f7dd70489829602a5c73038, type: 2}
   - {fileID: 11400000, guid: f92afce923be2dc44abaa4f1afbf7558, type: 2}
   - {fileID: 11400000, guid: ae446e265dadc0b49bf2007a4e69033a, type: 2}
+  badDoorBehaviours:
+  - {fileID: 11400000, guid: 60c99fffab1f923438fd822fadbbd7eb, type: 2}
+  - {fileID: 11400000, guid: 81aa3f1bcd8f0a742aa1ccb356673811, type: 2}
+  neutralDoorBehaviours:
+  - {fileID: 11400000, guid: 8c99f6cfa31646644a1cff40996d5f8e, type: 2}
+  - {fileID: 11400000, guid: a6f1892e2f3a2c94fb7ae8cdc090994d, type: 2}
+  goodDoorBehaviours:
+  - {fileID: 11400000, guid: 5967455727cdce24a90a71edafa6e3c9, type: 2}
 --- !u!1 &1181689363
 GameObject:
   m_ObjectHideFlags: 0
