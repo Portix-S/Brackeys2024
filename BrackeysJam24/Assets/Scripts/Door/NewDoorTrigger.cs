@@ -15,7 +15,7 @@ public class NewDoorTrigger : MonoBehaviour
         {
             Debug.Log(other.name);
             GameManager.Instance.SetNewDoors(doors, prologueTrigger, badDoorBehaviours, neutralDoorBehaviours, goodDoorBehaviours);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

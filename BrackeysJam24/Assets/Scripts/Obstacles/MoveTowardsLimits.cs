@@ -28,7 +28,8 @@ public class MoveTowardsLimits : MonoBehaviour
     [SerializeField] private bool hasAttack;
     [SerializeField] private float attackRange;
     private bool attacking;
-    
+    private static readonly int Attack = Animator.StringToHash("Attack");
+
     private void Start()
     {
         currrentLimitObject = limits[currentLimit];
@@ -56,18 +57,20 @@ public class MoveTowardsLimits : MonoBehaviour
             currrentLimitObject = limits[currentLimit];
         }
 
-        if ((transform.position.x > currrentLimitObject.transform.position.x && !facingLeft) || (transform.position.x < currrentLimitObject.transform.position.x && facingLeft))
+        if (((transform.position.x > currrentLimitObject.transform.position.x && !facingLeft) || (transform.position.x < currrentLimitObject.transform.position.x && facingLeft)) && !attacking)
             Flip();
 
         if (Vector2.Distance(transform.position, player.transform.position) < attackRange)
         {
             if(attacking || !hasAttack) return;
-            Debug.Log("Attack");
+            if (transform.position.x > player.transform.position.x && !facingLeft ||
+                transform.position.x < player.transform.position.x && facingLeft)
+            {
+                Flip();
+            }
+            animator.SetTrigger(Attack);
+            StartCoroutine(ResetAttack());
             attacking = true;
-        }
-        else
-        {
-            attacking = false;
         }
         
 
@@ -92,12 +95,11 @@ public class MoveTowardsLimits : MonoBehaviour
         {
             animator.SetTrigger(Die);
             this.enabled = false;
-            Destroy(gameObject, 2f);
+            Destroy(gameObject.transform.parent.gameObject, 2f);
         }
         else
         {
             animator.SetTrigger(Damage);
-
         }
     }
     
@@ -106,6 +108,12 @@ public class MoveTowardsLimits : MonoBehaviour
         _takingDamage = false;
     }
 
+    private IEnumerator ResetAttack()
+    {
+        yield return new WaitForSeconds(0.9f);
+        attacking = false;
+    }
+    
     private IEnumerator Spawn()
     {
         yield return new WaitForSeconds(2f);
