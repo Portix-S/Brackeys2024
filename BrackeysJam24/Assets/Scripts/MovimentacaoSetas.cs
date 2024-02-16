@@ -1,50 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MovimentacaoSetas : MonoBehaviour
 {
-    [SerializeField] private float velocidade;
+    [SerializeField] private float _velocity = 3;
+    [SerializeField] private float _jumpVelocity = 10;
     private Rigidbody2D _rigidbody2D;
+    private Inputs _inputs;
+    private Vector2 _velocity2D;
+    private bool _jumpPerformed = true;
 
     // Start is called before the first frame update
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _inputs = GameManager.Instance.InputActions;
+        _inputs.Player.Movement.performed += MovePlayer;
+        _inputs.Player.Movement.canceled += MovePlayer;
+        _inputs.Player.Jump.performed += JumpPlayer;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void MovePlayer(InputAction.CallbackContext context)
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            MoveHorizontally(velocidade);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            MoveHorizontally(velocidade * -1);
-        }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            MoveVertically(velocidade);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            MoveVertically(velocidade * -1);
-        }
+        float xDirection = context.ReadValue<float>();
+        _velocity2D = _rigidbody2D.velocity;
+        _velocity2D.x = xDirection * _velocity;
+        _rigidbody2D.velocity = _velocity2D;
     }
 
-    void MoveHorizontally(float velocity)
+    private void JumpPlayer(InputAction.CallbackContext context)
     {
-        _rigidbody2D.velocity = new Vector2(velocity, 0);
-    }
-
-    void MoveVertically(float velocity)
-    {
-        Transform t = transform;
-        Vector3 newPos = t.position;
-        newPos.y += velocity * Time.deltaTime;
-
-        t.position = newPos;
+        if (_jumpPerformed)
+        {
+            //_jumpPerformed = false;
+            _velocity2D = _rigidbody2D.velocity;
+            _velocity2D.y = _jumpVelocity;
+            _rigidbody2D.velocity = _velocity2D;
+        }
     }
 }

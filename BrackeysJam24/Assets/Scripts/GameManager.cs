@@ -29,8 +29,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<DoorBehaviour> neutralDoorBehaviours;
     [SerializeField] private List<DoorBehaviour> goodDoorBehaviours;
 
+    public Inputs InputActions => inputAction;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (Instance == null)
         {
