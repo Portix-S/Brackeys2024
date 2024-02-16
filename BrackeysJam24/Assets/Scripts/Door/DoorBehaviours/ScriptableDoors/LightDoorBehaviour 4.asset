@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: LightDoorBehaviour 4
   m_EditorClassIdentifier: 
   sprite: {fileID: -1693841826, guid: fc2698e8a81a39d4192e8a189796a457, type: 3}
+  color: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
   lightIntensity: 10
-  lightRange: 10
+  lightRange: 25
+  lightFallOff: 0.944

@@ -6,11 +6,14 @@ using UnityEngine;
 
 public class LightDoorBehaviour : DoorBehaviour
 {
+    public Color color;
     public float lightIntensity;
     public float lightRange;
+    public float lightFallOff;
     // Reference player script?
     public override void ActivateDoor()
     {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<LightManager>().ChangeLightParams(color, lightIntensity, lightRange, lightFallOff);
         Debug.Log("Light Door Activated with" + lightIntensity + " intensity and " + lightRange + " range!");
     }
 }
