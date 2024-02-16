@@ -274,10 +274,14 @@ public class GameManager : MonoBehaviour
         // Get Door Component and play open animation / sound / give "reward"
     }
 
-    public void SetNewDoors(List<GameObject> newDoors, bool prologueTrigger)
+    public void SetNewDoors(List<GameObject> newDoors, bool prologueTrigger, List<DoorBehaviour> badDoorBehaviours, List<DoorBehaviour> neutralDoorBehaviours, List<DoorBehaviour> goodDoorBehaviours)
     {
         doors.Clear();
         doors = newDoors;
+        this.badDoorBehaviours = badDoorBehaviours;
+        this.neutralDoorBehaviours = neutralDoorBehaviours;
+        this.goodDoorBehaviours = goodDoorBehaviours;
+        
         _openingDoor = false;
         if (prologueTrigger)
         {
